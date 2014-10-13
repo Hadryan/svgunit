@@ -1,0 +1,35 @@
+span.indicator{
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border-radius: 0.25em;
+  background-color: #ccc;
+  border: 1px solid #aaa;
+}
+
+span.indicator.green{
+  background-color: green;
+}
+
+
+.bob-out{
+  transform: rotate(25deg);
+}
+
+.throb-out{
+  transform: scale(1.3,1.3);
+}
+
+.bob-transition{
+  -webkit-transition: all, ease-in-out 0.2s;
+  transition: all, ease-in-out 0.2s;
+  -webkit-transform-origin: 50% 65%;
+  transform-origin: 50% 100%;
+}
+
+.throb-transition{
+  -webkit-transition: all, ease-in-out 0.1s;
+  transition: all, ease-in-out 0.2s;
+  -webkit-transform-origin: 50% 65%;
+  transform-origin: 75% 50%;
+}
