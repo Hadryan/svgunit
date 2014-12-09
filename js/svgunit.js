@@ -22,6 +22,14 @@ $(function(){
   var lowbuffer = [];
   var highbuffer = [];
 
+  // minimum frames for an animation
+  var minFrames = 5;
+
+  // fram minimums
+  var lowMinFrames = 0;
+  var midMinFrames = 0;
+  var highMinFrames = 0;
+
   function draw() {
     drawVisual = requestAnimationFrame(draw);
 
@@ -83,31 +91,48 @@ $(function(){
     $('#high-diff').text(highdiff);
 
     trippedlow = lowbuffavg + 10 < lowavg;
-    trippedmid = midbuffavg + 10 < midavg;
+    trippedmid = midbuffavg < midavg;
     trippedhigh = highbuffavg + 10 < highavg;
 
     // trippedlow = avgGainOverBuffer(lowbuffavg, lowavg) > 0.15;
     // trippedmid = avgGainOverBuffer(midbuffavg, midavg) > 0.15;
     // trippedhigh = avgGainOverBuffer(highbuffavg, highavg) > 0.25;
 
-    // css class trip
-    $('#low-indicator').toggleClass("green", trippedlow);
-    $('#mid-indicator').toggleClass("green", trippedmid);
-    $('#high-indicator').toggleClass("green", trippedhigh);
-
     if(trippedlow){
+      lowMinFrames = minFrames;
+    }
+
+    if(trippedmid){
+      midMinFrames = minFrames;
+    }
+
+    if(trippedhigh){
+      highMinFrames = minFrames;
+    }
+
+    // count down frames
+    lowMinFrames -= 1;
+    midMinFrames -= 1;
+    highMinFrames -= 1;
+
+    // css class trip
+    $('#low-indicator').toggleClass("green", lowMinFrames > 0);
+    $('#mid-indicator').toggleClass("green", midMinFrames > 0);
+    $('#high-indicator').toggleClass("green", highMinFrames > 0);
+
+    if(lowMinFrames > 0){
       $('#torso').attr('class', 'bob-transition bob-out');
     }else{
       $('#torso').attr('class', 'bob-transition');
     }
 
-    if(trippedmid){
+    if(midMinFrames > 0){
       $('#head').attr('class', 'bob-transition bob-out');
     }else{
       $('#head').attr('class', 'bob-transition');
     }
 
-    if(trippedhigh){
+    if(highMinFrames > 0){
       $('#hair').attr('class', 'throb-transition throb-out');
     }else{
       $('#hair').attr('class', 'throb-transition');
