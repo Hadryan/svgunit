@@ -91,7 +91,7 @@ $(function(){
     $('#high-diff').text(highdiff);
 
     trippedlow = lowbuffavg + 10 < lowavg;
-    trippedmid = midbuffavg < midavg;
+    trippedmid = midbuffavg + 5 < midavg;
     trippedhigh = highbuffavg + 10 < highavg;
 
     // trippedlow = avgGainOverBuffer(lowbuffavg, lowavg) > 0.15;
